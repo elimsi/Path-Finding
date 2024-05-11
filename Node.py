@@ -7,3 +7,10 @@ class Node:
             self.neighbors = neighbors
         else:
             self.neighbors = set()
+
+    def add_neighbor(self, node):
+        self.neighbors.add(node)
+        node.neighbors.add(self)
+
+    def distance(self, node):
+        return sqrt(sum(pow(a - b, 2) for a, b in zip(self.pos, node.pos)))
