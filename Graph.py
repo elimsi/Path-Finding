@@ -32,3 +32,27 @@ class Graph:
                     if not matrix[y + dy, x + dx]:
                         continue
                     self.add_neighbor((x, y), (x + dx, y + dy))
+
+    def BFS(self, start, end):
+        if start not in self.nodes or end not in self.nodes:
+            return None
+        queue = Queue()
+        queue.put(start)
+        parent = {start: None}
+        while not queue.empty():
+            current = queue.get()
+            node = self.nodes[current]
+            if current == end:
+                break
+            for neighbor in node.neighbors:
+                if neighbor.pos not in parent:
+                    parent[neighbor.pos] = current
+                    queue.put(neighbor.pos)
+        if end not in parent:
+            return None
+        path = []
+        while end is not None:
+            path.append(self.nodes[end])
+            end = parent[end]
+        path.reverse()
+        return path
