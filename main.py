@@ -13,3 +13,18 @@ def image_to_grid(img):
 
 grid = image_to_grid(img)
 graph = Graph(grid)
+
+import time
+import random as r
+from math import *
+
+def distance_2points(case1,case2):
+    return(np.round(sqrt((case2[0]-case1[0])**2 + (case2[1]-case1[1])**2),3))
+
+def inter_cercle(M,centre,rayon,couleur):
+    cx,cy=centre
+    tab_case=[[(i,j) for i in range(round(cx-rayon),round(cx+rayon)+1)] for j in range(round(cy-rayon),round(cy+rayon)+1)]
+    for l_case in tab_case:
+        for case in l_case:
+            if distance_2points(case,centre)<=rayon and np.mean(M[case])>=100:
+                M[case]=couleur
