@@ -28,3 +28,13 @@ def inter_cercle(M,centre,rayon,couleur):
         for case in l_case:
             if distance_2points(case,centre)<=rayon and np.mean(M[case])>=100:
                 M[case]=couleur
+
+c1=np.array([0,0,200])
+c4=np.array([0,255,255])
+
+inter_cercle(img,(345,465),40,c1)
+inter_cercle(img,(225,254),40,c1)
+
+for _ in range(15):
+    a,b=r.randint(100,700),r.randint(400,1000)
+    inter_cercle(img,(a,b),35,c4)
