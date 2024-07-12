@@ -56,3 +56,33 @@ class Graph:
             end = parent[end]
         path.reverse()
         return path
+
+    def djikstra(self, start, end):
+        if start not in self.nodes or end not in self.nodes:
+            return None
+        queue = Queue()
+        queue.put(start)
+        parent = {start: None}
+        distance = {start: 0}
+        while not queue.empty():
+            current = queue.get()
+            node = self.nodes[current]
+            if current == end:
+                break
+            for neighbor in node.neighbors:
+                if neighbor.pos not in parent:
+                    parent[neighbor.pos] = current
+                    distance[neighbor.pos] = distance[current] + node.distance(neighbor)
+                    queue.put(neighbor.pos)
+                elif distance[current] + node.distance(neighbor) < distance[neighbor.pos]:
+                    parent[neighbor.pos] = current
+                    distance[neighbor.pos] = distance[current] + node.distance(neighbor)
+                    queue.put(neighbor.pos)
+        if end not in parent:
+            return None
+        path = []
+        while end is not None:
+            path.append(self.nodes[end])
+            end = parent[end]
+        path.reverse()
+        return path
