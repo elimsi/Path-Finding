@@ -86,3 +86,34 @@ class Graph:
             end = parent[end]
         path.reverse()
         return path
+
+    def heuristic(self, pos, goal):
+        return ((pos[0] - goal[0])**2 + (pos[1] - goal[1])**2)**0.5
+
+    def A_star(self, start, end):
+        import heapq
+        if start not in self.nodes or end not in self.nodes:
+            return None
+        queue = [(0, start)]
+        cost = {start: 0}
+        parent = {start: None}
+        while queue:
+            _, current = heapq.heappop(queue)
+            node = self.nodes[current]
+            if current == end:
+                break
+            for neighbor in node.neighbors:
+                new_cost = cost[current] + node.distance(neighbor)
+                if neighbor.pos not in cost or new_cost < cost[neighbor.pos]:
+                    cost[neighbor.pos] = new_cost
+                    priority = new_cost + self.heuristic(neighbor.pos, end)
+                    heapq.heappush(queue, (priority, neighbor.pos))
+                    parent[neighbor.pos] = current
+        if end not in parent:
+            return None
+        path = []
+        while end is not None:
+            path.append(self.nodes[end])
+            end = parent[end]
+        path.reverse()
+        return path
