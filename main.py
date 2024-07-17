@@ -38,3 +38,21 @@ inter_cercle(img,(225,254),40,c1)
 for _ in range(15):
     a,b=r.randint(100,700),r.randint(400,1000)
     inter_cercle(img,(a,b),35,c4)
+
+depart=(434,615)
+arrivee=(1018,50)
+
+plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+path = graph.BFS(depart,arrivee)
+if path:
+    plt.plot([x for x, _ in path], [y for _, y in path], "r-")
+
+path1 = graph.A_star(depart,arrivee)
+if path1:
+    plt.plot([x for x, _ in path1], [y for _, y in path1], "c--")
+
+path2 = graph.djikstra(depart,arrivee)
+if path2:
+    plt.plot([x for x, _ in path2], [y for _, y in path2], "g-")
+
+plt.show()
