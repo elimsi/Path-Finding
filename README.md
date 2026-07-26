@@ -1,9 +1,9 @@
-# 🗺️ TIPE 2023: Optimisation d'un trajet à l'aide d'algorithmes
+# 🗺️ TIPE 2024: Optimisation d'un trajet à l'aide d'algorithmes
 
-![Pathfinding Visualization](pathfinding_result.png)
+![Pathfinding Visualization](result.png)
 
 ## 📌 Project Overview
-This project was developed for my **TIPE 2023** (Travail d'Initiative Personnelle Encadré). It is a Python-based visualization and comparison tool for graph pathfinding algorithms. 
+This project was developed for my **TIPE 2024** (Travail d'Initiative Personnelle Encadré). It is a Python-based visualization and comparison tool for graph pathfinding algorithms. 
 
 The goal of this project is to parse a real-world satellite map (Rabat-Salé, Morocco), construct a walkable graph, and compute the optimal routes between a starting point (e.g., EMI) and a destination using three distinct pathfinding algorithms:
 - **Breadth-First Search (BFS)**
