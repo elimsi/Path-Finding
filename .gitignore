@@ -1,1 +1,4 @@
-pathfinding_result.png\n__pycache__/\n*.log
+pathfinding_result.png
+__pycache__/
+*.log
+simulate_git.py
