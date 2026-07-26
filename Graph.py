@@ -39,8 +39,10 @@ class Graph:
         queue = Queue()
         queue.put(start)
         parent = {start: None}
+        visited_order = []
         while not queue.empty():
             current = queue.get()
+            visited_order.append(current)
             node = self.nodes[current]
             if current == end:
                 break
@@ -52,10 +54,10 @@ class Graph:
             return None
         path = []
         while end is not None:
-            path.append(self.nodes[end])
+            path.append(self.nodes[end].pos)
             end = parent[end]
         path.reverse()
-        return path
+        return path, visited_order
 
     def djikstra(self, start, end):
         if start not in self.nodes or end not in self.nodes:
@@ -64,8 +66,10 @@ class Graph:
         queue.put(start)
         parent = {start: None}
         distance = {start: 0}
+        visited_order = []
         while not queue.empty():
             current = queue.get()
+            visited_order.append(current)
             node = self.nodes[current]
             if current == end:
                 break
@@ -82,10 +86,10 @@ class Graph:
             return None
         path = []
         while end is not None:
-            path.append(self.nodes[end])
+            path.append(self.nodes[end].pos)
             end = parent[end]
         path.reverse()
-        return path
+        return path, visited_order
 
     def heuristic(self, pos, goal):
         return ((pos[0] - goal[0])**2 + (pos[1] - goal[1])**2)**0.5
@@ -97,8 +101,10 @@ class Graph:
         queue = [(0, start)]
         cost = {start: 0}
         parent = {start: None}
+        visited_order = []
         while queue:
             _, current = heapq.heappop(queue)
+            visited_order.append(current)
             node = self.nodes[current]
             if current == end:
                 break
@@ -113,7 +119,7 @@ class Graph:
             return None
         path = []
         while end is not None:
-            path.append(self.nodes[end])
+            path.append(self.nodes[end].pos)
             end = parent[end]
         path.reverse()
-        return path
+        return path, visited_order

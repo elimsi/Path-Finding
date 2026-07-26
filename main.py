@@ -3,7 +3,10 @@ import numpy as np
 from Graph import Graph
 import matplotlib.pyplot as plt
 
-img = cv2.imread("lol.png")
+from animate import animate_search
+import time
+
+img = cv2.imread("map_source.png")
 
 def image_to_grid(img):
     is_road = (img[:, :, 0] > 100) & (img[:, :, 1] > 100) & (img[:, :, 2] > 100)
@@ -43,16 +46,35 @@ depart=(434,615)
 arrivee=(1018,50)
 
 plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-path = graph.BFS(depart,arrivee)
+
+print("Running BFS...")
+t0 = time.time()
+path, order = graph.BFS(depart, arrivee)
+t1 = time.time()
+print(f"BFS finished in {t1 - t0:.3f} seconds.")
 if path:
-    plt.plot([x for x, _ in path], [y for _, y in path], "r-")
+    plt.plot([x for x, _ in path], [y for _, y in path], "r-", label="BFS")
 
-path1 = graph.A_star(depart,arrivee)
+print("Running A*...")
+t0 = time.time()
+path1, order1 = graph.A_star(depart, arrivee)
+t1 = time.time()
+print(f"A* finished in {t1 - t0:.3f} seconds.")
 if path1:
-    plt.plot([x for x, _ in path1], [y for _, y in path1], "c--")
+    plt.plot([x for x, _ in path1], [y for _, y in path1], "c--", label="A*")
+    print("Generating A* animation...")
+    animate_search("map_source.png", order1, path1, "astar_exploration.gif", n_frames=40)
 
-path2 = graph.djikstra(depart,arrivee)
+print("Running Dijkstra...")
+t0 = time.time()
+path2, order2 = graph.djikstra(depart, arrivee)
+t1 = time.time()
+print(f"Dijkstra finished in {t1 - t0:.3f} seconds.")
 if path2:
-    plt.plot([x for x, _ in path2], [y for _, y in path2], "g-")
+    plt.plot([x for x, _ in path2], [y for _, y in path2], "g-", label="Dijkstra")
+    print("Generating Dijkstra animation...")
+    animate_search("map_source.png", order2, path2, "dijkstra_exploration.gif", n_frames=40)
 
-plt.show()
+plt.legend()
+plt.savefig("result_comparison.png")
+# plt.show()
